@@ -15,9 +15,5 @@ My name is Hallie Shi. I am first year Ph.D in Animal Biosciences.I love Burling
 <img src="Burlington.jpg" width = "200" height ="200" />     <img src="Galaxy.jpeg" width = "200" height ="200" />
 <p align="center">
 
-## Homework Assignments
 
-### HW#1: nothing due
-### HW#2: create this website for my portfolio
-### HW#3: waiting for updating
 

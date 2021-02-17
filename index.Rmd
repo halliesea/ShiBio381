@@ -1,0 +1,25 @@
+---
+title: "Biol381"
+author: "Hallie Shi"
+date: "Feb 10 2021"
+output: 
+  prettydoc::html_pretty:
+  theme: Cayman
+  highlight: github
+---
+## Hello Everyone! Welcome to my webpage! I hope we will have fun in this class.
+
+My name is Hallie Shi. I am first year Ph.D in Animal Biosciences.I love Burlington and UVM!
+
+<p align="center">
+<img src="Burlington.jpg" width = "200" height ="200" />     <img src="Galaxy.jpeg" width = "200" height ="200" />
+<p align="center">
+
+## Homework Assignments
+
+### HW#1: nothing due
+### HW#2: create this website for my portfolio
+### HW#3: waiting for updating
+
+
+
