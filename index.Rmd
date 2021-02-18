@@ -17,10 +17,10 @@ My name is Hallie Shi. I am first year Ph.D in Animal Biosciences.I love Burling
 
 ## Homework Assignments
 
-### HW#1: nothing due
-### HW#2: create this website for my portfolio [HW#2](Feb10_HW2.html)
+### HW#1: Nothing due
+### HW#2: Create this website for my portfolio [Here is the link for HW#2](Feb10_HW2.html)
 
-### HW#3: waiting for updating
+### HW#3: Regular Expression Puzzles [Here is the link for HW#3](HW_3RegularExpression.html)
 
 
 
