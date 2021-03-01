@@ -22,5 +22,10 @@ My name is Hallie Shi. I am the first year Ph.D in Animal Biosciences.I love Bur
 
 ### HW#3: Regular Expression Puzzles [Here is the link for HW#3](HW_3RegularExpression.html)
 
+### HW#4: [Typora](HW#4_Typora.html)   
+          [HS_coverletter with signature](Biol381HS_CoverLetter.pdf)   
+          [HS_beamerpractice](Biol381PracticeBeamer.pdf)
+
+### HW#5:
 
 
