@@ -9,7 +9,7 @@ output:
 ---
 ## Hello Everyone! Welcome to my webpage! I hope we will have fun in this class.
 
-My name is Hallie Shi. I am first year Ph.D in Animal Biosciences.I love Burlington and UVM!
+My name is Hallie Shi. I am the first year Ph.D in Animal Biosciences.I love Burlington and UVM!
 
 <p align="center">
 <img src="Burlington.jpg" width = "200" height ="200" />     <img src="Galaxy.jpeg" width = "200" height ="200" />

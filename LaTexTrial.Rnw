@@ -1,0 +1,50 @@
+\documentclass{article}
+
+\begin{document}
+
+% In LaTeX, the % sign is the comment character, not the # in R or in shell scripts.
+
+% remove the asterisk for numbered titles;
+\section{Main Title}
+
+\subsection{second level title}
+Here is \textbf{bold face}.\\
+Here is \textit{italic font}.\\
+here is \texttt{plain text}.\\
+
+``use two back ticks to start a quatation and two signle quotes to end queation''.
+
+\begin{itemize}
+ \item first bullet point
+ \item second bullet point
+ \item third bullet point
+\end {itemize}
+
+\begin{enumerate}
+ \item first bullet point
+ \item second bullet point
+ \item third bullet point
+\end {enumerate}
+
+\begin{verbatim}
+Text here is  literal. with  no formatting  signs Careful, there is also no margin control!
+\end{verbatim}
+
+Fortunately, most of what you do for writing in \LaTeX actually follows the rules for plan text!
+
+\begin{quote}
+This  indents an entire paragraph for an extended quatations
+\end {quote}
+
+
+<<echo=TRUE>>=
+x <- runif(10)
+y <- runif(10)
+# comments as always with a hash tag
+print(x)
+plot(y)
+@
+
+
+
+\end{document}
