@@ -34,4 +34,5 @@ My name is Hallie Shi. I am the first year Ph.D in Animal Biosciences.I love Bur
 ### HW#5: 
 [Atomic Vectors](HW_5.html)
 
-
+### HW#6
+[Matrices,lists, and data frames](HW6.html)
