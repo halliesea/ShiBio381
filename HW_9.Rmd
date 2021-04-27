@@ -1,0 +1,98 @@
+---
+title: "HW_9"
+author: "Hallie Shi"
+date: "4/8/2021"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Q1:use structured programming to organize the code
+```{r}
+# FUNCTION Getdata
+# description: Generate random dataset
+# input: sample size,avg1=average of control group,avg2=average of fortified group,sd1=standard derivation of control group,sd2=standard derivation of fortified group
+# outputs: dframe
+###################################################################
+Getdata <- function(samplesize=20,avg1=4.5,avg2=4.4,sd1=0.1,sd2=0.1) {
+  ph<-c(rnorm(samplesize,avg1,sd1),rnorm(samplesize,avg2,sd2))
+  groups <- rep(c("C","F"),each=20)
+  weeks <- rep(1:10,time=2)
+  dframe <- data.frame(ph,groups,weeks)
+return(dframe)
+} 
+Getdata()
+dframe<-Getdata() # create global variable
+```
+```{r}
+# FUNCTION Analyzedata
+# description: Mean of the pH for both groups
+# input: dframe
+# outputs: independent t.test to analyze wether there is a difference in the average of two groups.
+###################################################################
+Analyzedata <- function(data=dframe) {
+    if(is.null(dframe)){
+     dframe <- data.frame(ph,weeks,groups)
+     }else
+       {
+   ttest<- t.test(dframe$ph~dframe$groups)
+       }
+  return(ttest)
+} # end of Analyzedata
+Analyzedata()
+```
+```{r}
+# FUNCTION Graphoutput
+# description: visualize the result 
+# input: dframe
+# outputs: changes of ph in both group during 10 week shelf life
+################################################################### 
+Graphoutput <- function(data=dframe){ 
+  library(ggplot2)
+    p1<-ggplot(dframe, aes(x=weeks, y=ph,color=groups)) +
+    geom_point()+
+    geom_smooth(se=FALSE)+
+    scale_x_continuous(breaks=seq(1,10,by=1))+
+    scale_y_continuous(breaks=seq(4.0,5,by=0.1))
+
+return(p1)
+} # end of Graphoutput
+Graphoutput()
+```
+
+
+### Q2: Improve the line graph with error bar. [Online reference](http://www.sthda.com/english/wiki/ggplot2-error-bars-quick-start-guide-r-software-and-data-visualization)
+```{r}
+# Function to calculate the mean and the standard deviation for each group
+  # data : a data frame
+  # varname : the name of a column containing the variable to be summariezed
+  # groupnames : vector of column names to be used asngrouping variables
+##########################################################################
+data_summary <- function(data, varname, groupnames){
+    require(plyr)
+    summary_func <- function(x, col){
+      c(mean = mean(x[[col]], na.rm=TRUE),
+        sd = sd(x[[col]], na.rm=TRUE))
+    }
+    data_sum<-ddply(data, groupnames, .fun=summary_func,
+                    varname)
+    data_sum <- rename(data_sum, c("mean" = varname))
+    return(data_sum)
+}
+df2<- data_summary(dframe,varname="ph",groupnames =c( "groups","weeks"))
+df2$weeks=as.factor(df2$weeks) # Covert weeks to a factor variable
+```
+
+```{r}
+# Line plot with error bars
+p2<- ggplot(df2, aes(x=weeks, y=ph, group=groups, color=groups)) + 
+  geom_line() +
+  geom_point()+
+  geom_errorbar(aes(ymin=ph-sd, ymax=ph+sd), width=.2,
+                position=position_dodge(0.05))
+
+p2+labs(title="Change of pH for control and treatment groups during 10 weeks storage ", x="Weeks", y = "pH")+
+  theme_classic() +
+  scale_color_manual(values=c('#999999','#E69F00'))
+```

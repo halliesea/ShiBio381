@@ -40,3 +40,15 @@ My name is Hallie Shi. I am the first year Ph.D in Animal Biosciences.I love Bur
 ### HW#7
 [Stimulating and Fitting Data Distributions](HW7.html)
 
+### HW#8
+[Fake data set and hypotheses](HW_8.html)
+
+### HW#9
+[Organizing code with structured programming](HW_9.html)
+
+### HW#10 
+[For loops and randomizaiton test--will upload soon]()
+
+### HW#11
+[Batch processing--will upload soon]()
+
