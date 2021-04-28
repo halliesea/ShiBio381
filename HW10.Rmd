@@ -1,0 +1,156 @@
+---
+title: "HW10"
+author: "Hallie Shi"
+date: "4/14/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##### Q1. Using a for loop, write a function to calculate the number of zeroes in a numeric vector. Before entering the loop, set up a counter variable counter <- 0. Inside the loop, add 1 to counter each time you have a zero in the matrix. Finally, use return(counter) for the output.
+
+```{r}
+myvec<- sample(c(-1,-2,-3,0,1,2,3),100,replace = TRUE)
+
+z<-function(data=myvec){
+  z=0
+  for (i in seq_along(myvec)){ 
+  if( myvec[i]==0){
+    i = i+1
+    z = z+1
+  } 
+  }
+    return(cat("Number of zeroes:",z,"\n"))
+}
+z()
+
+```
+
+##### Q2. Use subsetting instead of a loop to rewrite the function as a single line of code.
+
+```{r}
+newvec<-myvec[myvec==0]
+length(newvec)
+```
+
+##### Q3.Create a matrix where the rows and columns are intergers, and the elements are equal to the row*columns.
+# input: x,y,integers
+# outputs: elements in the matrixs 
+
+```{r}
+# Loop over rows and columns
+    m <- matrix(nrow=10,ncol=10)
+    for (i in 1:nrow(m)) {
+      for (j in 1:ncol(m)) {
+        m[i,j] <- i*j
+      } # end of column j loop
+    } # end or row i loop
+    print(m)  
+```
+
+##### Q4. Use the code from the April 8th lecture (Randomization Tests) to design and conduct a randomization test for some of your own data. You will need to modify the functions that read in the data, calculate the metric, and randomize the data. Once those are set up, the program should run correctly calling your new functions. 
+
+```{r}
+# Preliminaries
+library(ggplot2)
+set.seed(100)
+#-------------------------------------------------------
+# FUNCTION Getdata
+# description: Generate random dataset
+# input: sample size,avg1=average of control group,avg2=average of fortified group,sd1=standard derivation of control group,sd2=standard derivation of fortified group
+# outputs: dframe
+###################################################################
+Getdata <- function(samplesize=20,avg1=5.0,avg2=4.0,sd1=0.15,sd2=0.1) {
+  ph<-c(rnorm(samplesize,avg1,sd1),rnorm(samplesize,avg2,sd2))
+  groups <- rep(c("C","F"),each=10)
+  weeks <- rep(1:10,time=1)
+  dframe <- data.frame(ph,groups,weeks)
+  dframe[,1]<- sample(dframe[,1])
+  return(dframe)
+} 
+Getdata()
+dframe<-Getdata() # create global variable
+```
+
+```{r}
+# ----------------------------------------------------------------
+# FUNCTION getMetric    
+# description: calculate metric for randomization test
+# input: 3-column data frame for regression
+# outputs: regression slope
+###################################################################
+getMetric <- function(data=dframe) {
+. <- aov(data[,1]~ data[,2])
+#. <- summary(.)
+#. <- .$coefficients[2,1]# check the extract p value in anova
+ 
+slope<- summary(.)[[1]][["Pr(>F)"]][1]               
+  return(slope)
+} # end of Analyzedata
+getMetric()
+```
+
+```{r}
+# FUNCTION shuffleData
+# description: randomize data for regression analysis
+# input: 3 column data frame(ph,groups,weeks)
+# outputs: 3 column data frame(ph,groups, weeks)
+################################################################### 
+shuffledata <- function(z=dframe){ 
+z[,1] <- sample(z[,1])
+return(z)
+} 
+shuffledata()
+```
+
+```{r}
+# FUNCTION getPval
+# description: calculate p value from simulation,compare with the simulated p-values
+# input: list of control metric and fortified metric
+# outputs: lower,upper tail probability values
+###################################################################
+getPval <- function(p=NULL){
+if(is.null(p)){
+  p <- list(xcon=runif(1),xftf=rnorm(1000))}
+  p_lower <- mean(p[[2]]<=p[[1]])
+  p_upper <- mean(p[[2]]>=p[[1]])
+  
+return(c(pL=p_lower,pU=p_upper))
+} # end of getPval
+getPval() 
+```
+
+```{r}
+# FUNCTION plotRanTest
+# description: create ggplot of histogram of simulated values
+# input: list of observed metric and vector of simulated metrics
+# outputs: saved ggplot graph
+###################################################################
+plotRanTest <- function(p=NULL){
+  if(is.null(p)){
+    p <- list(rnorm(1),rnorm(1000)) }
+  dF <- data.frame(ID=seq_along(p[[2]]),simX=p[[2]])
+  p1 <- ggplot(data=dF,mapping=aes(x=simX))
+  p1 + geom_histogram(mapping=aes(fill=I("goldenrod"),color=I("black"))) +
+    geom_vline(aes(xintercept=p[[1]],col="blue")) 
+} 
+#------------------------------------------------------------------
+plotRanTest()
+```
+
+```{r}
+# Get some data here and run all the functions
+nsim<- 1000
+xsim <- rep(NA,nsim)
+dframe  <- Getdata() # get fake data
+x_obs <- getMetric(dframe)
+
+for (i in seq_len(nsim)){
+  xsim[i] <- getMetric(shuffledata(dframe))
+} # run stimulation
+slopes <- list(x_obs,xsim) # 
+getPval()
+plotRanTest(slopes)
+```
