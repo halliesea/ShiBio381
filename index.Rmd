@@ -47,8 +47,8 @@ My name is Hallie Shi. I am the first year Ph.D in Animal Biosciences.I love Bur
 [Organizing code with structured programming](HW_9.html)
 
 ### HW#10 
-[For loops and randomizaiton test--will upload soon](HW10.html)
+[For loops and randomizaiton test](HW10.html)
 
 ### HW#11
-[Batch processing--will upload soon]()
+[Batch processing will upload soon]()
 
